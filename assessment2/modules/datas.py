@@ -3,6 +3,7 @@ import os
 
 path = os.getcwd()
 
+
 def datas():
     with open(f"{path}/files/retail_sales_data.csv") as file:
         rows = csv.reader(file)
@@ -23,4 +24,4 @@ def datas():
             except KeyError:
                 category[row[3]] = []
                 category[row[3]].append(row[0])
-        return transactions, store_location, category
+        return transactions, store_location, category, header
