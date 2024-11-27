@@ -31,6 +31,7 @@ def main():
                 option = input("Would you like to exit?(y/n) ").lower()
                 if option == "y":
                     break
+
     elif option == 4:
 
         while True:
