@@ -1,3 +1,7 @@
+import matplotlib.pyplot as plt
+import tkinter as tk
+import modules.datas as datas
+
 # Function to print a column
 def printcolumn(list, var1, length):
     print("|", "=" * length, "|")
@@ -42,3 +46,23 @@ def print_table_revenue(transaction, store, length):
     for i in store.keys():
         x.append([i, sum([float(y) for y in [transaction[z][11] for z in [id for id in store[i]]]])])
     print_row(length, x, "-")
+
+def print_pie(dictionary, title):
+    values = []
+    labels = []
+    for i in dictionary.keys():
+        values.append(dictionary[i])
+        labels.append(i)
+    plt.pie(values, labels=labels, autopct='%1.1f%%')
+    plt.title(title)
+    plt.show()
+
+def print_hist(dictionary, title, xlabel,  ylabel):
+    values = []
+    for i in dictionary.values():
+        values.append(float(i[11]))
+    plt.hist(values)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.show()
