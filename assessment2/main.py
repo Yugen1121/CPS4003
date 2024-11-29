@@ -13,7 +13,7 @@ menues = {1: """1. Retrieve the total number of transactions.
 
 def main():
     transactions, store_location, category, header = datas.datas()
-    option = input("Enter the option\n"+menues[1])
+    option = input("Enter the option\n"+menues[1]+"\n")
     option = hel.invalid_option(option, 7)
     if option == 1:
         print(f"The Total number of transaction is {len(transactions)}")
@@ -60,16 +60,20 @@ def main():
     elif option == 6:
         ui.print_table_revenue(transactions, store_location, 40)
     elif option == 7:
-        """
-• Total transactions.
-• Total revenue.
-• Average transaction value.
-• Total quantity of products sold.
-• Average customer satisfaction score.
-• Percentage of transactions using each payment method."""
-        print(f"Total number of transactions: {len(transactions)}")
-        print(f"Total revenue: ")
+
+        x = datas.sales_report(transactions)
+        payment_method = x[5]
+        print(f"""
+SALES REPORT
+• Total transactions: {x[0]} 
+• Total revenue: {x[1]:.2f}
+• Average transaction value: {x[2]:.2f}
+• Total quantity of products sold: {x[3]:.2f}
+• Average customer satisfaction score: {x[4]:.2f}""")
+        for i in payment_method.keys():
+            print(f"\t-{i}: {payment_method[i]}%")
     elif option == 0:
+        print("Thank you!!")
         return True
 if __name__ == "__main__":
     main()
