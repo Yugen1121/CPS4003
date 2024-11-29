@@ -2,9 +2,10 @@ import csv
 import os
 import modules.ui
 
+# Gets the path of current working dictionary
 path = os.getcwd()
 
-
+# Fetches the data from csv files and returns dictionaries
 def datas():
     with open(f"{path}/files/retail_sales_data.csv") as file:
         rows = csv.reader(file)
@@ -25,8 +26,14 @@ def datas():
             except KeyError:
                 category[row[3]] = []
                 category[row[3]].append(row[0])
+
+        # transactions uses transactionId as keys are the all the information as values
+        # store_location takes store location as keys and transactionID as values
+        # category takes category as keys and transactionID as values
+        # header is a list that contains the headers
         return transactions, store_location, category, header
 
+# returns the sales report
 def sales_report(transactions):
     total_products_sold = 0
     total_transactions = len(transactions)
@@ -49,3 +56,14 @@ def sales_report(transactions):
     average_transaction_value = total_revenue / total_transactions
 
     return total_transactions, total_revenue, average_transaction_value,total_products_sold, total_customer_satisfaction, payment_methods
+
+# returns total_revenue_per_location in a dic files where keys are the store location while the value are the total_revenue
+def total_revenue_per_location(transactions, store_location):
+    dic = {}
+    for i in  store_location.keys():
+        sum = 0
+        for j in store_location[i]:
+            sum += float(transactions[j][11])
+        dic[i] = sum
+
+    return dic
