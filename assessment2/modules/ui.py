@@ -66,3 +66,6 @@ def print_hist(dictionary, title, xlabel,  ylabel):
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.show()
+
+def dashboard():
+    pass
