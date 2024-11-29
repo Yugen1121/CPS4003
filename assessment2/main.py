@@ -57,6 +57,19 @@ def main():
                 option = input("Would you like to exit?(y/n) ").lower()
                 if option == "y":
                     break
-
+    elif option == 6:
+        ui.print_table_revenue(transactions, store_location, 40)
+    elif option == 7:
+        """
+• Total transactions.
+• Total revenue.
+• Average transaction value.
+• Total quantity of products sold.
+• Average customer satisfaction score.
+• Percentage of transactions using each payment method."""
+        print(f"Total number of transactions: {len(transactions)}")
+        print(f"Total revenue: ")
+    elif option == 0:
+        return True
 if __name__ == "__main__":
     main()
