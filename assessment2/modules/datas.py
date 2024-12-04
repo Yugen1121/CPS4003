@@ -5,6 +5,21 @@ import modules.ui
 # Gets the path of current working dictionary
 path = os.getcwd()
 
+class transactions:
+    def __init__(self, dict):
+        self.transactions = dict
+        self.number_of_transaction = len(list)
+
+class store_locations:
+    def __init__(self, dict):
+        self.store_locations = dict
+        self.number_of_locations = len(dict.keys())
+
+class categories:
+    def __init__(self, dict):
+        self.categories = dict
+        self.number_of_categories = len(dict.keys())
+
 # Fetches the data from csv files and returns dictionaries
 def datas():
     with open(f"{path}/files/retail_sales_data.csv") as file:
@@ -20,12 +35,13 @@ def datas():
             except KeyError:
                 store_location[row[2]] = []
                 store_location[row[2]].append(row[0])
-             
+
+
             try:
-                category[row[3]].append(row[0])
+                category[row[3]].append(row[0].lower())
             except KeyError:
                 category[row[3]] = []
-                category[row[3]].append(row[0])
+                category[row[3]].append(row[0].lower())
 
         # transactions uses transactionId as keys are the all the information as values
         # store_location takes store location as keys and transactionID as values
