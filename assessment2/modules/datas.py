@@ -1,31 +1,10 @@
 import csv
 import os
 import modules.ui
+import modules.objects as obj
 
 # Gets the path of current working dictionary
 path = os.getcwd()
-
-class transactions:
-    def __init__(self, dict):
-        self.transactions = dict
-        self.number_of_transaction = len(list)
-
-    #returns record of transaction with the transactionID
-    def tranaction(self, transactionID):
-        return self.transactions[transactionID]
-
-    def total_revenue(self):
-        return sum([int(x[11]) for x in self.transactions.values()])
-
-class store_locations:
-    def __init__(self, dict):
-        self.store_locations = dict
-        self.number_of_locations = len(dict.keys())
-
-class categories:
-    def __init__(self, dict):
-        self.categories = dict
-        self.number_of_categories = len(dict.keys())
 
 # Fetches the data from csv files and returns dictionaries
 def datas():
