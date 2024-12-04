@@ -10,6 +10,20 @@ class transactions:
     def total_revenue(self):
         return sum([int(x[11]) for x in self.transactions.values()])
 
+    def poupular_category(self):
+        dict = {}
+        for i in self.transactions:
+            if self.transactions[3] not in dict.keys():
+                dict[self.transactions[3]] = 1
+            else:
+                dict[self.transactions[3]] += 1
+
+        return dict
+
+    def average_rating(self):
+        return sum([float(x[-2]) for x in self.transactions.values()]) / self.number_of_transaction
+
+
 class store_locations:
     def __init__(self, dict):
         self.store_locations = dict
