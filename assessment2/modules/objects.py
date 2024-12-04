@@ -16,7 +16,41 @@ class store_locations:
         self.number_of_locations = len(dict.keys())
 
     def list_store(self):
-        return
+        return self.store_locations.keys()
+
+    def revenue_location(self, transactions, name):
+        return sum([int(transactions[x][11]) for x in self.store_locations[name]])
+
+    def revenue_each_location(self, transactions):
+        dict = {}
+        for i in self.store_locations().keys():
+            dict[i] = self.revenue_location(transactions, i)
+        return dict
+
+    def ratings(self, transactions, store):
+        return sum([float(transactions[x][-2]) for x in self.store_locations[store]]) / len(self.store_locations[store])
+
+    def rating_each_location(self, transactions):
+        dict = {}
+        for i in self.store_locations().keys():
+            dict[i] = self.ratings(transactions, i)
+        return dict
+
+    def best_selling_location(self, transactions, name):
+        dict = {}
+        for i in self.store_locations[name]:
+            if i[2] in dict.keys():
+                dict[i] += float(transactions[i][11])
+            else:
+                dict[i] = float(transactions[i][11])
+        return max(dict, key=dict.get)
+
+    def best_selling_each(self, transactions):
+        dict = {}
+        for i in self.store_locations().keys():
+            dict[i] = self.best_selling_location(transactions, i)
+
+        return dict
 
 class categories:
     def __init__(self, dict):
