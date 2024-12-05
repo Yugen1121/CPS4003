@@ -74,6 +74,7 @@ def main():
         elif option == 7:
             x = datas.sales_report(transactions)
             payment_method = x[5]
+
             print(f"""
     SALES REPORT
     • Total transactions: {x[0]} 
