@@ -68,4 +68,9 @@ def print_hist(dictionary, title, xlabel,  ylabel):
     plt.show()
 
 def dashboard():
-    pass
+    window = tk.Tk()
+    window.title("Dashboard")
+    window.geometry("500x500")
+    window.resizable(False, False)
+    window.configure(bg="black")
+    window.mainloop()

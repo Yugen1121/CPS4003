@@ -1,7 +1,7 @@
 import csv
 import os
 import modules.ui
-import modules.objects as obj
+import modules.objects
 
 # Gets the path of current working dictionary
 path = os.getcwd()

@@ -64,6 +64,12 @@ class store_locations:
         # takes store location as key and stores the store object as values
         self.store_locations = {}
 
+    def details(self):
+        x = []
+        for i in self.store_locations.values():
+            x.append(i.details())
+
+        return x
 
 class category:
     def __init__(self, name):
