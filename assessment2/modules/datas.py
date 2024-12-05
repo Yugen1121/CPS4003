@@ -6,6 +6,29 @@ import modules.objects as obj
 # Gets the path of current working dictionary
 path = os.getcwd()
 
+# Adds the information from row i to store_location
+def add_to_store_location(store_locations, i):
+    if i[2] not in store_locations.keys():
+        store_locations[i[2]] = obj.Store(i[2])
+    store_locations[i[2]].transactionsID.append(i[0])
+    store_locations[i[2]].revenue = i[-1]
+    store_locations[i[2]].rating = i[-2] / 5
+
+# Adds the category information from row i to Categories
+def add_to_categories(categories, i):
+    if i[3] not in categories.keys():
+        categories[i[3]] = obj.Category(i[3])
+    categories[i[3]].count += 1
+    categories[i[3]].unit_sold += i[6]
+    categories[i[3]].revenue += i[-1]
+
+# Adds the payment information from row i to Payment
+def add_to_payment_methods(payment, i):
+    if i[8] not in payment.keys():
+        payment[i[8]] = obj.Payment(i[8])
+    payment[i[8]].count += 1
+    payment[i[8]].revenue += i[-1]
+
 # Fetches the data from csv files and returns dictionaries
 def datas():
     with open(f"{path}/files/retail_sales_data.csv") as file:
@@ -22,33 +45,17 @@ def datas():
             transactions.revenue += i[-1]
             transactions.rating += i[-2]/5
 
-            if i[2] not in store_location.store_locations.keys():
-                store_location.store_locations[i[2]] = obj.Store(i[2])
-            store_location.store_locations[i[2]].transactionsID.append(i[0])
-            store_location.store_locations[i[2]].revenue = i[-1]
-            store_location.store_locations[i[2]].rating = i[-2]/5
+            add_to_store_location(store_location.store_locations, i)
 
-            if i[3] not in store_location.store_locations[i[2]].categories.keys():
-                store_location.store_locations[i[2]].categories[i[3]] = obj.Category(i[3])
-            store_location.store_locations[i[2]].categories[i[3]].count += 1
-            store_location.store_locations[i[2]].categories[i[3]].unit_sold += i[6]
-            store_location.store_locations[i[2]].categories[i[3]].revenue += i[-1]
+            # Adding data to store
+            add_to_categories(store_location.store_locations[i[2]].categories.categories, i)
+            add_to_payment_methods(store_location.store_locations[i[2]].payment_methods.methods, i)
 
-            if i[8] not in store_location.store_locations[i[2]].payment_methods.keys():
-                store_location.store_locations[i[2]].payment_methods[i[8]] = obj.Payment(i[8])
-            store_location.store_locations[i[2]].payment_methods[i[8]].count += 1
-            store_location.store_locations[i[2]].payment_methods[i[8]].revenue += i[-1]
+            # Adding data to category
+            add_to_categories(category.categories, i)
 
-            if i[3] not in category.categories.keys():
-                category.categories[i[3]] = obj.Category(i[3])
-            category.categories[i[3]].count += 1
-            category.categories[i[3]].unit_sold += i[6]
-            category.categories[i[3]].revenue += i[-1]
-
-            if i[8] not in payment.methods.keys():
-                payment.methods[i[8]] = obj.Payment(i[8])
-            payment.methods[i[8]].revenue += i[-1]
-            payment.methods[i[8]].count += 1
+            # Adding data to payment method
+            add_to_payment_methods(payment.methods, i)
 
         transactions.categories = category
         transactions.payments = payment
