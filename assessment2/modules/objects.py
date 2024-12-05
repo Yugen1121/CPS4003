@@ -1,3 +1,8 @@
+import modules.helpers
+
+from assessment2.modules.helpers import find_best
+
+
 class payment:
     def __init__(self, method):
         # takes the input method and assigns it to method
@@ -18,16 +23,14 @@ class payment_methods:
     def most_revenue(self):
         max = ["", 0]
         for i in self.methods:
-            if i.revenue > max[1]:
-                max = [i.name, i.revenue]
+            max = find_best([i.name, i.revenue], max)
         return max
 
     # returns the most used payment method
     def most_used(self):
         max = ["", 0]
         for i in self.methods:
-            if i.count > max[1]:
-                max = [i.name, i.count]
+            max = find_best([i.name, i.count], max)
         return max
 
 class store:
@@ -64,24 +67,21 @@ class categories:
     def most_revenue(self):
         max = ["", 0]
         for i in self.categories:
-            if i.revenue > max[1]:
-                max = [i.name, i.revenue]
+            max = find_best([i.name, i.revenue], max)
         return max
 
     # returns the category with the most transaction
     def popular(self):
         max = ["", 0]
         for i in self.categories:
-            if i.count > max[1]:
-                max = [i.name, i.count]
+            max = find_best([i.name, i.count], max)
         return max
 
     # returns the category with the most unit sold
     def most_unit(self):
         max = ["", 0]
         for i in self.categories:
-            if i.unit_sold > max[1]:
-                max = [i.name, i.unit_sold]
+            max = find_best([i.name, i.unit_sold], max)
         return max
 
 
