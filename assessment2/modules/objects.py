@@ -5,11 +5,30 @@ class payment:
         self.revenue = 0
         self.count = 0
 
-
 class payment_methods:
     def __init__(self):
         # takes method name as key and payment class as values
         self.methods = {}
+
+    # returns all the payment methods used
+    def payment_method(self):
+        return methods.keys()
+
+    # returns the payment method with the most revenue
+    def most_revenue(self):
+        max = ["", 0]
+        for i in self.methods:
+            if i.revenue > max[1]:
+                max = [i.name, i.revenue]
+        return max
+
+    # returns the most used payment method
+    def most_used(self):
+        max = ["", 0]
+        for i in self.methods:
+            if i.count > max[1]:
+                max = [i.name, i.count]
+        return max
 
 class store:
     def __init__(self, location):
@@ -47,7 +66,7 @@ class categories:
         for i in self.categories:
             if i.revenue > max[1]:
                 max = [i.name, i.revenue]
-        return max[0]
+        return max
 
     # returns the category with the most transaction
     def popular(self):
@@ -55,7 +74,7 @@ class categories:
         for i in self.categories:
             if i.count > max[1]:
                 max = [i.name, i.count]
-        return max[0]
+        return max
 
     # returns the category with the most unit sold
     def most_unit(self):
@@ -63,7 +82,7 @@ class categories:
         for i in self.categories:
             if i.unit_sold > max[1]:
                 max = [i.name, i.unit_sold]
-        return max[0]
+        return max
 
 
 class transactions:
