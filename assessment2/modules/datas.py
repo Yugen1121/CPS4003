@@ -2,6 +2,7 @@ import csv
 import os
 import modules.ui
 import modules.objects
+from assessment2.modules.objects import transactions, Store_locations, Category, Payment, Payment_methods
 
 # Gets the path of current working dictionary
 path = os.getcwd()
@@ -11,29 +12,48 @@ def datas():
     with open(f"{path}/files/retail_sales_data.csv") as file:
         rows = csv.reader(file)
         header = next(rows)
-        transactions = {}
-        store_location = {}
-        category = {}
-        for row in rows:
-            transactions[row[0]] = row
-            try:
-                store_location[row[2]].append(row[0])
-            except KeyError:
-                store_location[row[2]] = []
-                store_location[row[2]].append(row[0])
+        transactions = Transactions()
+        store_location = Store_locations()
+        category = Categories()
+        payment = Payment_methods()
 
+        for i in rows:
+            transactions.transactions[i[0]] = i
+            transactions.revenue += i[-1]
+            transactions.rating += i[-2]/5
 
-            try:
-                category[row[3]].append(row[0].lower())
-            except KeyError:
-                category[row[3]] = []
-                category[row[3]].append(row[0].lower())
+            if i[2] not in store_location.store_location.keys():
+                store_location.store_location[i[2]] = Store(i[2])
+            store_location.store_location[i[2]].transactionsID.append(i[0])
+            store_location.store_location[i[2]].revenue = i[-1]
+            store_location.store_location[i[2]].rating = i[-2]/5
 
-        # transactions uses transactionId as keys are the all the information as values
-        # store_location takes store location as keys and transactionID as values
-        # category takes category as keys and transactionID as values
-        # header is a list that contains the headers
-        return transactions, store_location, category, header
+            if i[3] not in store_location.store_location[1[2]].category[i[2]].keys():
+                store_location.store_location[i[2]].categories[i[3]] = Category(i[3])
+            store_location.store_location[i[2]].categories[i[3]].count += 1
+            store_location.store_location[i[2]].categories[i[3]].unit_sold += i[6]
+            store_location.store_location[i[2]].categories[i[3]].revenue += i[-1]
+
+            if i[8] not in store_location.store_location[i[2]].payment_method.keys():
+                store_location.store_location[i[2]].payment_method[i[8]] = Payment(i[8])
+            store_location.store_location[i[2]].payment_method.count += 1
+            store_location.store_location[i[2]].payment_method.revenue += i[-1]
+
+            if i[3] not in category.category.keys():
+                category.category[i[3]] = Category(i[3])
+            category.category[i[3]].count += 1
+            category.category[i[3]].unit_sold += i[6]
+            category.category[i[3]].revenue += i[-1]
+
+            if i[8] not in payment.method.keys():
+                payment.method[i[8]] = Payment(i[8])
+            payment.method[i[8]] += i[-1]
+            payment.method[i[8]] += 1
+
+        transactions.categories = category
+        transactions.payments = payment
+        transactions.stores = store_location
+    return transactions
 
 # returns the sales report
 def sales_report(transactions):

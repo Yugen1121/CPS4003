@@ -2,14 +2,14 @@ import modules.helpers
 from modules.helpers import find_best
 
 
-class payment:
+class Payment:
     def __init__(self, method):
         # takes the input method and assigns it to method
         self.method = method
         self.revenue = 0
         self.count = 0
 
-class payment_methods:
+class Payment_methods:
     def __init__(self):
         # takes method name as key and payment class as values
         self.methods = {}
@@ -33,14 +33,14 @@ class payment_methods:
         return max
 
 
-class store:
+class Store:
     def __init__(self, location):
         self.store_name = location
         self.transactionsID = []
         self.revenue = 0
         self.rating = 0
-        self.categories = []
-        self.payment_methods = []
+        self.categories = {}
+        self.payment_methods = {}
 
     # Returns the details about the store
     def details(self):
@@ -59,7 +59,7 @@ class store:
         return self.categories.return_categories()
 
 
-class store_locations:
+class Store_locations:
     def __init__(self):
         # takes store location as key and stores the store object as values
         self.store_locations = {}
@@ -71,14 +71,14 @@ class store_locations:
 
         return x
 
-class category:
+class Category:
     def __init__(self, name):
         self.name = name
         self.count = 0
         self.revenue = 0
         self.unit_sold = 0
 
-class categories:
+class Categories:
     def __init__(self):
         # takes category name as key and stores category object as values
         self.categories = {}
@@ -116,7 +116,7 @@ class categories:
         return sum
 
 
-class transactions:
+class Transactions:
     def __init__(self):
         # takes transaction id as key and record as value
         self.transactions = {}
