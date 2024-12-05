@@ -11,23 +11,23 @@ def add_to_store_location(store_locations, i):
     if i[2] not in store_locations.keys():
         store_locations[i[2]] = obj.Store(i[2])
     store_locations[i[2]].transactionsID.append(i[0])
-    store_locations[i[2]].revenue = i[-1]
-    store_locations[i[2]].rating = i[-2] / 5
+    store_locations[i[2]].revenue = round(store_locations[i[2]].revenue+i[-1], 2)
+    store_locations[i[2]].rating += i[-2]
 
 # Adds the category information from row i to Categories
 def add_to_categories(categories, i):
     if i[3] not in categories.keys():
         categories[i[3]] = obj.Category(i[3])
     categories[i[3]].count += 1
-    categories[i[3]].unit_sold += i[6]
-    categories[i[3]].revenue += i[-1]
+    categories[i[3]].unit_sold = round(categories[i[3]].unit_sold + i[6], 2)
+    categories[i[3]].revenue = round(categories[i[3]].revenue + i[-1], 2)
 
 # Adds the payment information from row i to Payment
 def add_to_payment_methods(payment, i):
     if i[8] not in payment.keys():
         payment[i[8]] = obj.Payment(i[8])
     payment[i[8]].count += 1
-    payment[i[8]].revenue += i[-1]
+    payment[i[8]].revenue = round(payment[i[8]].revenue + i[-1], 2)
 
 # Fetches the data from csv files and returns dictionaries
 def datas():
@@ -40,10 +40,11 @@ def datas():
         payment = obj.Payment_methods()
 
         for i in rows:
-            i[-1], i[5], i[-2], i[6]= float(i[-1]), int(i[5]), int(i[-2]), float(i[6])
+            i[-1], i[5], i[-2], i[6]= round(float(i[-1]), 2), int(i[5]), int(i[-2]), round(float(i[6]), 2)
+
             transactions.transactions[i[0]] = i
             transactions.revenue += i[-1]
-            transactions.rating += i[-2]/5
+            transactions.rating = i[-2]/5
 
             add_to_store_location(store_location.store_locations, i)
 
@@ -60,6 +61,7 @@ def datas():
         transactions.categories = category
         transactions.payments = payment
         transactions.stores = store_location
+
     return transactions
 
 # returns the sales report
