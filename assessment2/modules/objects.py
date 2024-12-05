@@ -122,9 +122,9 @@ class Transactions:
         self.transactions = {}
         self.revenue = 0
         self.rating = 0
-        self.stores = store_locations()
-        self.categories = categories()
-        self.payments = payment_methods()
+        self.stores = Store_locations()
+        self.categories = Categories()
+        self.payments = Payment_methods()
 
     # Takes transactionID as an input and returns record with the transactionID
     def transaction(self, transactionID):
