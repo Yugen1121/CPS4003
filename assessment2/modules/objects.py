@@ -39,8 +39,8 @@ class Store:
         self.transactionsID = []
         self.revenue = 0
         self.rating = 0
-        self.categories = {}
-        self.payment_methods = {}
+        self.categories = Categories()
+        self.payment_methods = Payment_methods()
 
     # Returns the details about the store
     def details(self):
@@ -74,6 +74,7 @@ class Store_locations:
 class Category:
     def __init__(self, name):
         self.name = name
+        self.transactionsID = []
         self.count = 0
         self.revenue = 0
         self.unit_sold = 0

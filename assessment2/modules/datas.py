@@ -21,6 +21,7 @@ def add_to_categories(categories, i):
     categories[i[3]].count += 1
     categories[i[3]].unit_sold = round(categories[i[3]].unit_sold + i[6], 2)
     categories[i[3]].revenue = round(categories[i[3]].revenue + i[-1], 2)
+    categories[i[3]].transactionsID.append(i[0])
 
 # Adds the payment information from row i to Payment
 def add_to_payment_methods(payment, i):
@@ -62,7 +63,7 @@ def datas():
         transactions.payments = payment
         transactions.stores = store_location
 
-    return transactions
+    return transactions, header
 
 # returns the sales report
 def sales_report(transactions):
