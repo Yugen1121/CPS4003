@@ -28,6 +28,7 @@ class store_locations:
 class category:
     def __init__(self, name):
         self.name = name
+        self.count = 0
         self.revenue = 0
         self.unit_sold = 0
 
@@ -35,6 +36,34 @@ class categories:
     def __init__(self):
         # takes category name as key and stores category object as values
         self.categories = {}
+
+    # Returns all the category name
+    def return_categories(self):
+        return self.categories.keys()
+
+    # returns the category with the most revenue
+    def most_revenue(self):
+        max = ["", 0]
+        for i in self.categories:
+            if i.revenue > max[1]:
+                max = [i.name, i.revenue]
+        return max[0]
+
+    # returns the category with the most transaction
+    def popular(self):
+        max = ["", 0]
+        for i in self.categories:
+            if i.count > max[1]:
+                max = [i.name, i.count]
+        return max[0]
+
+    # returns the category with the most unit sold
+    def most_unit(self):
+        max = ["", 0]
+        for i in self.categories:
+            if i.unit_sold > max[1]:
+                max = [i.name, i.unit_sold]
+        return max[0]
 
 
 class transactions:
@@ -57,7 +86,7 @@ class transactions:
 
     # returns all the category
     def show_categories(self):
-        return self.categories.categories.keys()
+        return self.categories.categories.return_categories()
 
     # returns all the payment methods used to pay
     def payment_method(self):
