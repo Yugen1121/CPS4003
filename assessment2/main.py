@@ -14,24 +14,23 @@ menues = {1: """1. Retrieve the total number of transactions.
 0. Exit"""}
 
 def main():
-    main = datas.datas()
+    main, header = datas.datas()
     option = -1
     while option != 0:
         option = input("Enter the option\n"+menues[1]+"\n")
         option = hel.invalid_option(option, 8)
-
         if option == 1:
             print(f"The Total number of transaction is {len(main.transactions)}")
 
         elif option == 2:
-            ui.printcolumn(store_location.keys(), "Store locations", 40)
-            ui.printcolumn(category.keys(), "Categories", 40)
+            ui.printcolumn(main.stores.store_locations.keys(), "Store locations", 40)
+            ui.printcolumn(main.categories.categories.keys(), "Categories", 40)
 
         elif option == 3:
             while True:
                 id = input("Enter the transactionId you are looking for: ")
                 try:
-                    ui.printTransactions(transactions[id], header, 40)
+                    ui.printTransactions(main.transactions[id], header, 40)
                     break
                 except KeyError:
                     print("Invalid ID.")
@@ -43,8 +42,8 @@ def main():
             while True:
                 name = input("Enter the Store name: ").strip().title()
                 try:
-                    for i in store_location[name]:
-                        ui.printTransactions(transactions[i], header, 40)
+                    for i in main.stores.store_locations[name].transactionsID:
+                        ui.printTransactions(main.transactions[i], header, 40)
                     break
                 except KeyError:
                     print("Store doesn't exist: ")
@@ -56,8 +55,8 @@ def main():
             while True:
                 name = input("Enter the product Category: ").strip().title()
                 try:
-                    for i in category[name]:
-                        ui.printTransactions(transactions[i], header, 40)
+                    for i in main.categories.categories[name].transactionsID:
+                        ui.printTransactions(main.transactions[i], header, 40)
                     break
                 except KeyError:
                     print("Category doesn't exist: ")
@@ -66,7 +65,11 @@ def main():
                         break
 
         elif option == 6:
-            ui.print_table_revenue(transactions, store_location, 40)
+            list = []
+            for i in main.stores.store_locations.keys():
+                list.append([i, main.stores.store_locations[i].revenue])
+            ui.print_header(["Store Location", "Revenue"], 40)
+            ui.print_row(40, list, "-")
 
         elif option == 7:
             x = datas.sales_report(transactions)
