@@ -39,7 +39,7 @@ def main():
 
     elif option == 4:
         while True:
-            name = input("Enter the Store name: ")
+            name = input("Enter the Store name: ").strip().title()
             try:
                 for i in store_location[name]:
                     ui.printTransactions(transactions[i], header, 40)
@@ -52,7 +52,7 @@ def main():
     
     elif option == 5:
         while True:
-            name = input("Enter the product Category: ")
+            name = input("Enter the product Category: ").strip().title()
             try:
                 for i in category[name]:
                     ui.printTransactions(transactions[i], header, 40)
@@ -91,7 +91,7 @@ allowing further exploration of the data.
         elif option == 2:
             ui.print_hist(transactions, "Histogram of total transactions", "Total transaction", "Frequency of transaction amount")
         elif option == 3:
-            pass
+            ui.dashboard()
         elif option == 0:
             pass
     elif option == 0:
