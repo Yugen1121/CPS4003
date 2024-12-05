@@ -5,6 +5,7 @@ class payment:
         self.revenue = 0
         self.count = 0
 
+
 class payment_methods:
     def __init__(self):
         # takes method name as key and payment class as values
@@ -58,13 +59,6 @@ class transactions:
     def show_categories(self):
         return self.categories.categories.keys()
 
-    # returns the total revenue from a location
-    def revenue(self):
-        return self.revenue
-
-    # returns average rating across all the stores
-    def rating(self):
-        return self.rating
     # returns all the payment methods used to pay
     def payment_method(self):
         return self.payments.payment_methods.keys()
