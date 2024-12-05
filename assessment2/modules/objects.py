@@ -43,3 +43,21 @@ class transactions:
         self.stores = store_locations()
         self.categories = categories()
         self.payments = payment_methods()
+
+    def transaction(self, transactionID):
+        return self.transactions[transactionID]
+
+    def show_stores(self):
+        return self.store_locations.keys()
+
+    def show_categories(self):
+        return self.categories.categories.keys()
+
+    def revenue(self):
+        return self.revenue
+
+    def rating(self):
+        return self.rating
+
+    def payment_method(self):
+        return self.payments.payment_methods.keys()
