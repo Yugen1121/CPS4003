@@ -1,6 +1,5 @@
 import modules.helpers
-
-from assessment2.modules.helpers import find_best
+from modules.helpers import find_best
 
 
 class payment:
@@ -33,6 +32,7 @@ class payment_methods:
             max = find_best([i.name, i.count], max)
         return max
 
+
 class store:
     def __init__(self, location):
         self.store_name = location
@@ -42,10 +42,28 @@ class store:
         self.categories = []
         self.payment_methods = []
 
+    # Returns the details about the store
+    def details(self):
+        return {"Loaction": self.store_name, "Revenue" : self.revenue, "Total unit Sold": self.categories.total_unit(), "Rating": self.rating}
+
+    # Returns the most popular category
+    def popular_category(self):
+        return self.categories.popular()
+
+    # Returns the category with the most revenue
+    def most_revenue_category(self):
+        return self.categories.most_revenue()
+
+    # Returns all teh category soled in the store
+    def all_categories(self):
+        return self.categories.return_categories()
+
+
 class store_locations:
     def __init__(self):
         # takes store location as key and stores the store object as values
         self.store_locations = {}
+
 
 class category:
     def __init__(self, name):
@@ -83,6 +101,13 @@ class categories:
         for i in self.categories:
             max = find_best([i.name, i.unit_sold], max)
         return max
+
+    # Returns all the total unit sold
+    def total_unit(self):
+        sum = 0
+        for i in self.categories:
+            sum += i.unit_sold
+        return sum
 
 
 class transactions:
