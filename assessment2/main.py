@@ -72,28 +72,19 @@ def main():
             ui.print_row(40, list, "-")
 
         elif option == 7:
-            x = datas.sales_report(transactions)
-            payment_method = x[5]
-
-            print(f"""
-    SALES REPORT
-    • Total transactions: {x[0]} 
-    • Total revenue: {x[1]:.2f}
-    • Average transaction value: {x[2]:.2f}
-    • Total quantity of products sold: {x[3]:.2f}
-    • Average customer satisfaction score: {x[4]:.2f}""")
-            for i in payment_method.keys():
-                print(f"\t-{i}: {payment_method[i]}%")
+           for i in main.stores.store_locations.values():
+               print(i)
         elif option == 8:
             option = input("""1. Display a pie chart of revenue contribution by store location.
-    2. Display a histogram of total transaction values.
-    3. An interactive dashboard summarising key insights and trends and
-    allowing further exploration of the data.
-    0. Exit
+2. Display a histogram of total transaction values.
+3. An interactive dashboard summarising key insights and trends and
+allowing further exploration of the data.
+0. Exit
     """)
             option = hel.invalid_option(option, 3)
             if option == 1:
-                ui.print_pie(datas.total_revenue_per_location(transactions, store_location), "Pie chart of revenue contribution by store location.")
+                list = main.revenue_each_location()
+                ui.print_pie(list[0], list[1], "Pie chart of revenue contribution by store location.")
             elif option == 2:
                 ui.print_hist(transactions, "Histogram of total transactions", "Total transaction", "Frequency of transaction amount")
             elif option == 3:
