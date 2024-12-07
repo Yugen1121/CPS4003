@@ -83,10 +83,9 @@ allowing further exploration of the data.
     """)
             option = hel.invalid_option(option, 3)
             if option == 1:
-                list = main.revenue_each_location()
-                ui.print_pie(list[0], list[1], "Pie chart of revenue contribution by store location.")
+                main.pc_revenue_each_location()
             elif option == 2:
-                ui.print_hist(transactions, "Histogram of total transactions", "Total transaction", "Frequency of transaction amount")
+                main.hg_total_trans_value_el()
             elif option == 3:
                 ui.dashboard()
             elif option == 0:
