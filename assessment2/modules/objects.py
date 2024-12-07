@@ -1,5 +1,40 @@
 import modules.helpers
+import matplotlib.pyplot as plt
+import tkinter as tk
 from modules.helpers import find_best
+
+class Plot:
+
+    # Function to create a pie char
+    def print_pie(self, labels, values, title):
+        plt.pie(values, labels=labels, autopct='%1.1f%%')
+        plt.title(title)
+        plt.show()
+
+    # Function to create a histogram
+    def print_hist(self, list, title, xlabel, ylabel):
+        fig, ax = plt.subplots(1, 1)
+        ax.hist(list[1])
+
+        # Set title
+        ax.set_title(title)
+
+        # adding labels
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+
+        # Make some labels.
+        rects = ax.patches
+
+        for rect, label in zip(rects, list[0]):
+            height = rect.get_height()
+            ax.text(rect.get_x() + rect.get_width() / 2, height + 0.01, label,
+                    ha='center', va='bottom')
+
+            # Show plot
+        plt.show()
+
+
 
 class Payment:
     def __init__(self, method):
@@ -129,7 +164,7 @@ class Categories:
         return sum
 
 
-class Transactions:
+class Transactions(Plot):
     def __init__(self):
         # takes transaction id as key and record as value
         self.transactions = {}
@@ -155,9 +190,18 @@ class Transactions:
     def payment_method(self):
         return self.payments.payment_methods.keys()
 
-    def revenue_each_location(self):
+    # Makes a pie chart using matplotlib as its base
+    def pc_revenue_each_location(self):
         list = [[], []]
         for i in self.stores.store_locations.values():
             list[0].append(i.store_name)
             list[1].append(i.revenue)
-        return list
+        super().print_pie(list[0], list[1], "Pie chart of revenue contribution by store location.")
+
+    # Makes a histogram using matplotlib as its base
+    def hg_total_trans_value_el(self):
+        list = [[], []]
+        for i in self.stores.store_locations.values():
+            list[0].append(i.store_name)
+            list[1].append(len(i.transactionsID))
+        super().print_hist(list, "Total transactions contribution by store location.", "Store Locations", "Number of Transactions")
