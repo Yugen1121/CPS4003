@@ -1,7 +1,6 @@
 import modules.helpers
 from modules.helpers import find_best
 
-
 class Payment:
     def __init__(self, method):
         # takes the input method and assigns it to method
@@ -41,6 +40,19 @@ class Store:
         self.rating = 0
         self.categories = Categories()
         self.payment_methods = Payment_methods()
+
+    def __str__(self):
+
+        payments = ""
+        for i in self.payment_methods.methods.values():
+            payments = payments + f"\t-{i.method}: {i.revenue}\n"
+        return f"""    SALES REPORT
+• Loaction: {self.store_name}
+• Total transactions: {len(self.transactionsID)} 
+• Total revenue: {self.revenue:.2f}
+• Average transaction value: {(self.revenue/len(self.transactionsID)):.2f}
+• Total quantity of products sold: {sum([i.unit_sold for i in self.categories.categories.values()]):.2f}
+• Average customer satisfaction score: {self.rating:.2f}\n""" + payments
 
     # Returns the details about the store
     def details(self):
