@@ -43,12 +43,7 @@ def print_header(list, length):
 
 
 
-def print_pie(dictionary, title):
-    values = []
-    labels = []
-    for i in dictionary.keys():
-        values.append(dictionary[i])
-        labels.append(i)
+def print_pie(labels, values, title):
     plt.pie(values, labels=labels, autopct='%1.1f%%')
     plt.title(title)
     plt.show()
