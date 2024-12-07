@@ -40,28 +40,12 @@ def print_header(list, length):
         print("|", "="*(length-1), end="")
     print("|")
 
-
-
-
-def print_pie(labels, values, title):
-    plt.pie(values, labels=labels, autopct='%1.1f%%')
-    plt.title(title)
-    plt.show()
-
-def print_hist(dictionary, title, xlabel,  ylabel):
-    values = []
-    for i in dictionary.values():
-        values.append(float(i[11]))
-    plt.hist(values)
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.show()
-
-def dashboard():
+def dashboard(self):
     window = tk.Tk()
     window.title("Dashboard")
     window.geometry("500x500")
     window.resizable(False, False)
     window.configure(bg="black")
     window.mainloop()
+
+
