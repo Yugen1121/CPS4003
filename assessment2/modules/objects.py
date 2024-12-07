@@ -154,3 +154,10 @@ class Transactions:
     # returns all the payment methods used to pay
     def payment_method(self):
         return self.payments.payment_methods.keys()
+
+    def revenue_each_location(self):
+        list = [[], []]
+        for i in self.stores.store_locations.values():
+            list[0].append(i.store_name)
+            list[1].append(i.revenue)
+        return list
