@@ -1,6 +1,7 @@
 from modules import datas
 from modules import helpers as hel
 from modules import ui
+from modules.objects import dashboard
 import matplotlib.pyplot as mp
 
 menues = {1: """1. Retrieve the total number of transactions.
@@ -87,7 +88,8 @@ allowing further exploration of the data.
             elif option == 2:
                 main.hg_total_trans_value_el()
             elif option == 3:
-                ui.dashboard()
+                x = dashboard()
+                x.run()
             elif option == 0:
                 pass
         elif option == 0:
