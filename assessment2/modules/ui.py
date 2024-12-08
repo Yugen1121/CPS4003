@@ -40,12 +40,7 @@ def print_header(list, length):
         print("|", "="*(length-1), end="")
     print("|")
 
-def dashboard(self):
-    window = tk.Tk()
-    window.title("Dashboard")
-    window.geometry("500x500")
-    window.resizable(False, False)
-    window.configure(bg="black")
-    window.mainloop()
+
+
 
 

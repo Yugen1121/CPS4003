@@ -65,13 +65,4 @@ def datas():
 
     return transactions, header
 
-# returns total_revenue_per_location in a dic files where keys are the store location while the value are the total_revenue
-def total_revenue_per_location(transactions, store_location):
-    dic = {}
-    for i in  store_location.keys():
-        sum = 0
-        for j in store_location[i]:
-            sum += float(transactions[j][11])
-        dic[i] = sum
 
-    return dic

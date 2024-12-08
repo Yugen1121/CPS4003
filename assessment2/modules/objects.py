@@ -3,6 +3,35 @@ import matplotlib.pyplot as plt
 import tkinter as tk
 from modules.helpers import find_best
 
+class dashboard:
+    def __init__(self):
+        self.window = tk.Tk()
+        self.window.title("Dashboard")
+        self.window.geometry("500x500")
+        self.window.resizable(False, False)
+        self.window.configure(bg="black")
+
+    def column_configure(self, x):
+        for i in range(x):
+            self.window.columnconfigure(i, weight=1)
+
+    def label_configure(self):
+        self.label = tk.Label(self.window)
+        self.label.config(text="Dahsboard", font=("Helvetica", 20))
+        self.label.grid(column=1, row=0, columnspan=2, sticky="ew")
+
+    def button_configure(self):
+        self.button1 = tk.Button(self.window, text="Button 1")
+        self.button1.grid(column=1, row=1, columnspan=2, sticky="ew")
+        self.button2 = tk.Button(self.window, text="Button 2")
+        self.button2.grid(column=1, row=2, columnspan=2, sticky="ew")
+
+    def run(self):
+        self.column_configure(4)
+        self.label_configure()
+        self.button_configure()
+        self.window.mainloop()
+
 class Plot:
 
     # Function to create a pie char
