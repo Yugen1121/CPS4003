@@ -1,7 +1,6 @@
 from modules import datas
 from modules import helpers as hel
 from modules import ui
-from modules.objects import dashboard
 import matplotlib.pyplot as mp
 
 menues = {1: """1. Retrieve the total number of transactions.
@@ -15,7 +14,7 @@ menues = {1: """1. Retrieve the total number of transactions.
 0. Exit"""}
 
 def main():
-    main, header = datas.datas()
+    main= datas.datas()
     option = -1
     while option != 0:
         option = input("Enter the option\n"+menues[1]+"\n")
@@ -28,53 +27,19 @@ def main():
             ui.printcolumn(main.categories.categories.keys(), "Categories", 40)
 
         elif option == 3:
-            while True:
-                id = input("Enter the transactionId you are looking for: ")
-                try:
-                    ui.printTransactions(main.transactions[id], header, 40)
-                    break
-                except KeyError:
-                    print("Invalid ID.")
-                    option = input("Would you like to exit?(y/n) ").lower()
-                    if option == "y":
-                        break
+            main.print_t()
 
         elif option == 4:
-            while True:
-                name = input("Enter the Store name: ").strip().title()
-                try:
-                    for i in main.stores.store_locations[name].transactionsID:
-                        ui.printTransactions(main.transactions[i], header, 40)
-                    break
-                except KeyError:
-                    print("Store doesn't exist: ")
-                    option = input("Would you like to exit?(y/n) ").lower()
-                    if option == "y":
-                        break
+            main.print_ts()
 
         elif option == 5:
-            while True:
-                name = input("Enter the product Category: ").strip().title()
-                try:
-                    for i in main.categories.categories[name].transactionsID:
-                        ui.printTransactions(main.transactions[i], header, 40)
-                    break
-                except KeyError:
-                    print("Category doesn't exist: ")
-                    option = input("Would you like to exit?(y/n) ").lower()
-                    if option == "y":
-                        break
+            main.print_tp()
 
         elif option == 6:
-            list = []
-            for i in main.stores.store_locations.keys():
-                list.append([i, main.stores.store_locations[i].revenue])
-            ui.print_header(["Store Location", "Revenue"], 40)
-            ui.print_row(40, list, "-")
+            main.print_rs()
 
         elif option == 7:
-           for i in main.stores.store_locations.values():
-               print(i)
+            main.print_srs()
         elif option == 8:
             option = input("""1. Display a pie chart of revenue contribution by store location.
 2. Display a histogram of total transaction values.
@@ -88,7 +53,7 @@ allowing further exploration of the data.
             elif option == 2:
                 main.hg_total_trans_value_el()
             elif option == 3:
-                x = dashboard()
+                x = ui.Gui(main, header)
                 x.run()
             elif option == 0:
                 pass

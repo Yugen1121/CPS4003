@@ -2,7 +2,7 @@ import modules.helpers
 import matplotlib.pyplot as plt
 import tkinter as tk
 from modules.helpers import find_best
-
+import modules.ui as ui
 
 class Plot:
 
@@ -174,6 +174,7 @@ class Transactions(Plot):
         self.stores = Store_locations()
         self.categories = Categories()
         self.payments = Payment_methods()
+        self.header = []
 
     # Takes transactionID as an input and returns record with the transactionID
     def transaction(self, transactionID):
@@ -206,3 +207,60 @@ class Transactions(Plot):
             list[1].append(len(i.transactionsID))
         super().print_hist(list, "Total transactions contribution by store location.", "Store Locations", "Number of Transactions")
     # Makes a histogram using matplotlib as its base
+
+    # Checks if the transaction id exists
+    def print_t(self):
+        while True:
+            id = input("Enter the transactionId you are looking for: ")
+            try:
+                ui.printTransactions(self.transactions[id], self.header, 40)
+                break
+            except KeyError:
+                print("Invalid ID.")
+                option = input("Would you like to exit?(y/n) ").lower()
+                if option == "y":
+                    break
+
+    def print_ts(self):
+        while True:
+            name = input("Enter the Store name: ").strip().title()
+            try:
+                for i in self.stores.store_locations[name].transactionsID:
+                    ui.printTransactions(self.transactions[i], self.header, 40)
+                break
+            except KeyError:
+                print("Store doesn't exist: ")
+                option = input("Would you like to exit?(y/n) ").lower()
+                if option == "y":
+                    break
+
+    def print_tp(self):
+        while True:
+            name = input("Enter the product Category: ").strip().title()
+            try:
+                for i in self.categories.categories[name].transactionsID:
+                    ui.printTransactions(self.transactions[i], self.header, 40)
+                break
+            except KeyError:
+                print("Category doesn't exist: ")
+                option = input("Would you like to exit?(y/n) ").lower()
+                if option == "y":
+                    break
+
+    def print_rs(self):
+        list = []
+        for i in self.stores.store_locations.keys():
+            list.append([i, self.stores.store_locations[i].revenue])
+        ui.print_header(["Store Location", "Revenue"], 40)
+        ui.print_row(40, list, "-")
+
+    def print_srs(self):
+        option = -1
+        while option != "y":
+            store = input("Enter the Store name: ").strip().title()
+            try:
+                print(self.stores.store_locations[store])
+                break
+            except KeyError:
+                print("Store doesn't exist.")
+                option = input("Would you like to exit?(y/n) ").lower().strip()
