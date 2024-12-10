@@ -53,7 +53,7 @@ allowing further exploration of the data.
             elif option == 2:
                 main.hg_total_trans_value_el()
             elif option == 3:
-                x = ui.Gui(main, header)
+                x = ui.Gui(main)
                 x.run()
             elif option == 0:
                 pass
