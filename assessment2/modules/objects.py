@@ -109,6 +109,8 @@ class Store:
     def all_categories(self):
         return self.categories.return_categories()
 
+    def revenue_by_date(self):
+        return self.transactions_bd.revenue()
 
 class Store_locations:
     def __init__(self):
@@ -172,6 +174,20 @@ class Transactions_bd:
     def __init__(self):
         self.transactions = {}
 
+    def revenue(self):
+        d = [[], []]
+        for i in sorted(self.transactions.keys()):
+            d[0].append(i)
+            d[1].append(self.transactions[i])
+        return d
+
+    def unit_sold(self, records):
+        d = [[], []]
+        for i in sorted(self.transactions.keys()):
+            d[0].append(i)
+            d[1].append(transactions[i])
+        return d
+
 class Transactions(Plot):
     def __init__(self):
         # takes transaction id as key and record as value
@@ -200,12 +216,16 @@ class Transactions(Plot):
     def payment_method(self):
         return self.payments.payment_methods.keys()
 
-    # Makes a pie chart using matplotlib as its base
-    def pc_revenue_each_location(self):
+    def retrun_list_revenue(self):
         list = [[], []]
         for i in self.stores.store_locations.values():
             list[0].append(i.store_name)
             list[1].append(i.revenue)
+        return list
+
+    # Makes a pie chart using matplotlib as its base
+    def pc_revenue_each_location(self):
+        list = self.retrun_list_revenue()
         super().print_pie(list[0], list[1], "Pie chart of revenue contribution by store location.")
 
     # Makes a histogram using matplot lib as its base
@@ -277,3 +297,21 @@ class Transactions(Plot):
             except KeyError:
                 print("Store doesn't exist.")
                 option = input("Would you like to exit?(y/n) ").lower().strip()
+    def tbd_revenue_base(self, y):
+        list = [[], []]
+        x = y.revenue()
+        for i in range(len(x[0])):
+            list[0].append(x[0][i])
+            list[1].append(sum([round(float(self.transactions[j][11]), 2) for j in x[1][i]]))
+
+        return list
+
+    def tbd_revenue(self, x):
+        return self.tbd_revenue_base(self.transactions_bd)
+
+    def return_tbd_all(self):
+        list = []
+        for i in self.stores.store_locations.values():
+            list.append(self.tbd_revenue_base(i.transactions_bd))
+            list[-1].append(i.store_name)
+        return list
