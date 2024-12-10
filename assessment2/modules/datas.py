@@ -13,6 +13,12 @@ def add_to_store_location(store_locations, i):
     store_locations[i[2]].transactionsID.append(i[0])
     store_locations[i[2]].revenue = round(store_locations[i[2]].revenue+i[-1], 2)
     store_locations[i[2]].rating += i[-2]
+    # Adding data to store categories
+    add_to_categories(store_locations[i[2]].categories.categories, i)
+    # Adding to store payment methods
+    add_to_payment_methods(store_locations[i[2]].payment_methods.methods, i)
+    # adding to store transactions_by_date
+    add_to_transactions_bd(store_locations[i[2]].transactions_bd.transactions, i)
 
 # Adds the category information from row i to Categories
 def add_to_categories(categories, i):
@@ -22,6 +28,7 @@ def add_to_categories(categories, i):
     categories[i[3]].unit_sold = round(categories[i[3]].unit_sold + i[6], 2)
     categories[i[3]].revenue = round(categories[i[3]].revenue + i[-1], 2)
     categories[i[3]].transactionsID.append(i[0])
+    add_to_transactions_bd(categories[i[3]].transactions_bd.transactions, i)
 
 # Adds the payment information from row i to Payment
 def add_to_payment_methods(payment, i):
@@ -29,6 +36,12 @@ def add_to_payment_methods(payment, i):
         payment[i[8]] = obj.Payment(i[8])
     payment[i[8]].count += 1
     payment[i[8]].revenue = round(payment[i[8]].revenue + i[-1], 2)
+#
+def add_to_transactions_bd(transactions, i):
+    date = i[7][:7]
+    if date not in transactions.keys():
+        transactions[date] = []
+    transactions[date].append(i[0])
 
 # Fetches the data from csv files and returns dictionaries
 def datas():
@@ -39,6 +52,7 @@ def datas():
         store_location = obj.Store_locations()
         category = obj.Categories()
         payment = obj.Payment_methods()
+        tbd = obj.Transactions_bd()
 
         for i in rows:
             i[-1], i[5], i[-2], i[6]= round(float(i[-1]), 2), int(i[5]), int(i[-2]), round(float(i[6]), 2)
@@ -47,11 +61,11 @@ def datas():
             transactions.revenue += i[-1]
             transactions.rating = i[-2]/5
 
+            # Adding datas to store locations
             add_to_store_location(store_location.store_locations, i)
 
-            # Adding data to store
-            add_to_categories(store_location.store_locations[i[2]].categories.categories, i)
-            add_to_payment_methods(store_location.store_locations[i[2]].payment_methods.methods, i)
+            # Adding to the whole company transactions by date
+            add_to_transactions_bd(tbd.transactions, i)
 
             # Adding data to category
             add_to_categories(category.categories, i)
@@ -62,7 +76,8 @@ def datas():
         transactions.categories = category
         transactions.payments = payment
         transactions.stores = store_location
-
-    return transactions, header
+        transactions.header = header
+        transactions.transactions_bd = tbd
+    return transactions
 
 
