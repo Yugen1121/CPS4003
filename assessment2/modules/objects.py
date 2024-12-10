@@ -4,6 +4,8 @@ import tkinter as tk
 from modules.helpers import find_best
 import modules.ui as ui
 
+
+
 class Plot:
 
     # Function to create a pie char
@@ -76,6 +78,7 @@ class Store:
         self.rating = 0
         self.categories = Categories()
         self.payment_methods = Payment_methods()
+        self.transactions_bd = Transactions_bd()
 
     def __str__(self):
 
@@ -126,6 +129,7 @@ class Category:
         self.count = 0
         self.revenue = 0
         self.unit_sold = 0
+        self.transactions_bd = Transactions_bd()
 
 class Categories:
     def __init__(self):
@@ -164,6 +168,9 @@ class Categories:
             sum += i.unit_sold
         return sum
 
+class Transactions_bd:
+    def __init__(self):
+        self.transactions = {}
 
 class Transactions(Plot):
     def __init__(self):
@@ -175,6 +182,7 @@ class Transactions(Plot):
         self.categories = Categories()
         self.payments = Payment_methods()
         self.header = []
+        self.transactions_bd = Transactions_bd()
 
     # Takes transactionID as an input and returns record with the transactionID
     def transaction(self, transactionID):
@@ -200,13 +208,14 @@ class Transactions(Plot):
             list[1].append(i.revenue)
         super().print_pie(list[0], list[1], "Pie chart of revenue contribution by store location.")
 
+    # Makes a histogram using matplot lib as its base
     def hg_total_trans_value_el(self):
         list = [[], []]
         for i in self.stores.store_locations.values():
             list[0].append(i.store_name)
             list[1].append(len(i.transactionsID))
         super().print_hist(list, "Total transactions contribution by store location.", "Store Locations", "Number of Transactions")
-    # Makes a histogram using matplotlib as its base
+
 
     # Checks if the transaction id exists
     def print_t(self):
@@ -221,6 +230,7 @@ class Transactions(Plot):
                 if option == "y":
                     break
 
+    # Prints the transactions of a store
     def print_ts(self):
         while True:
             name = input("Enter the Store name: ").strip().title()
@@ -234,6 +244,7 @@ class Transactions(Plot):
                 if option == "y":
                     break
 
+    # Prints the transactions of a input category
     def print_tp(self):
         while True:
             name = input("Enter the product Category: ").strip().title()
@@ -247,6 +258,7 @@ class Transactions(Plot):
                 if option == "y":
                     break
 
+    # Prints the revene of all teh stores
     def print_rs(self):
         list = []
         for i in self.stores.store_locations.keys():
@@ -254,6 +266,7 @@ class Transactions(Plot):
         ui.print_header(["Store Location", "Revenue"], 40)
         ui.print_row(40, list, "-")
 
+    # Prints the sales report of all the stores
     def print_srs(self):
         option = -1
         while option != "y":
