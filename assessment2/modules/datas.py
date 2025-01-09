@@ -2,6 +2,7 @@ import csv
 import os
 import modules.ui
 import modules.objects as obj
+import json
 
 # Gets the path of current working dictionary
 path = os.getcwd()
@@ -36,7 +37,7 @@ def add_to_payment_methods(payment, i):
         payment[i[8]] = obj.Payment(i[8])
     payment[i[8]].count += 1
     payment[i[8]].revenue = round(payment[i[8]].revenue + i[-1], 2)
-#
+# adds the transactions by date
 def add_to_transactions_bd(transactions, i):
     date = i[7][:7]
     if date not in transactions.keys():
@@ -80,4 +81,9 @@ def datas():
         transactions.transactions_bd = tbd
     return transactions
 
+def json_exp(file):
+    path = os.getcwd()+"\\json"
+    print(f"Saving the file in '{path}'")
+    with open(f"{path}\\{file["Loaction"]}.json", "w") as export:
+        json.dump(file, export, indent=4)
 
