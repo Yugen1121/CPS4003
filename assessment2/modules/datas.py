@@ -26,7 +26,7 @@ def add_to_categories(categories, i):
     if i[3] not in categories.keys():
         categories[i[3]] = obj.Category(i[3])
     categories[i[3]].count += 1
-    categories[i[3]].unit_sold = round(categories[i[3]].unit_sold + i[6], 2)
+    categories[i[3]].unit_sold = round(categories[i[3]].unit_sold + i[-1]/i[6], 2)
     categories[i[3]].revenue = round(categories[i[3]].revenue + i[-1], 2)
     categories[i[3]].transactionsID.append(i[0])
     add_to_transactions_bd(categories[i[3]].transactions_bd.transactions, i)
@@ -60,7 +60,7 @@ def datas():
 
             transactions.transactions[i[0]] = i
             transactions.revenue += i[-1]
-            transactions.rating = i[-2]/5
+            transactions.rating = i[-2]
 
             # Adding datas to store locations
             add_to_store_location(store_location.store_locations, i)
@@ -78,6 +78,7 @@ def datas():
         transactions.payments = payment
         transactions.stores = store_location
         transactions.header = header
+        transactions.rating = transactions.rating/len(transactions.transactions)
         transactions.transactions_bd = tbd
     return transactions
 
