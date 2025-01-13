@@ -89,19 +89,11 @@ class Gui(customGraph):
         self.window.state('zoomed')
         self.window.configure(bg="black")
 
-    def column_configure(self, x):
-        for i in range(x):
-            self.window.columnconfigure(i, weight=1)
-
-    def label_configure(self):
-        self.label = tk.Label(self.window)
-        self.label.config(text="Dahsboard", font=("Helvetica", 20))
-        self.label.grid(column=1, row=0, columnspan=2, sticky="ew")
-
-
-    def run(self):
+    def run(self, x = 1):
         self.new_frame()
-        self.dashboard()
+        self.side_bar()
+        if x == 1:
+            self.Frame1()
         self.window.update()
         self.window.mainloop()
 
@@ -129,9 +121,14 @@ class Gui(customGraph):
         return super().overlap_line(self.main.return_tbd_quantity(), "Unit sold of each location by date")
 
 
+    def side_bar(self):
+        frame =tk.Frame(self.window, bg = "black")
+        frame.pack(side = "left", fill="y")
 
+        Label = tk.Label(frame, text="Dahsboard", bg = "black", fg = "white", font=("Georgia", 24))
+        Label.pack(padx = 40, pady = 30)
 
-    def dashboard(self):
+    def Frame1(self):
         # revenue location pie
         fig1, ax1 = self.print_revenue_location()
 
@@ -148,11 +145,14 @@ class Gui(customGraph):
         frame = tk.Frame(self.window)
         frame.pack(fill="both", expand=True)
 
-        canvas1 = FigureCanvasTkAgg(fig1, frame)
+        frame2 = tk.Frame(self.window)
+        frame2.pack(fill="both", expand = True)
+
+        canvas1 = FigureCanvasTkAgg(fig1, frame2)
         canvas1.draw()
         canvas1.get_tk_widget().pack(side="left", fill="both", expand=True)
 
-        canvas2 = FigureCanvasTkAgg(fig2, frame)
+        canvas2 = FigureCanvasTkAgg(fig2, frame2)
         canvas2.draw()
         canvas2.get_tk_widget().pack(side="left", fill="both", expand=True)
 
