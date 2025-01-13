@@ -23,38 +23,38 @@
         }
     ],
     "Revenue": 207643.04,
-    "Total unit Sold": 36464.15,
+    "Total unit Sold": 858.0,
     "Rating": 3.02,
     "Categories": [
         {
             "Category": "Other",
             "Number of time bought": 26,
             "Revenue": 43924.75,
-            "Unit sold": 6248.2
+            "Unit sold": 179.0
         },
         {
             "Category": "Electronics",
             "Number of time bought": 21,
             "Revenue": 35674.3,
-            "Unit sold": 6345.7
+            "Unit sold": 114.0
         },
         {
             "Category": "Grocery",
             "Number of time bought": 36,
             "Revenue": 42612.31,
-            "Unit sold": 8207.74
+            "Unit sold": 190.0
         },
         {
             "Category": "Home Goods",
             "Number of time bought": 34,
             "Revenue": 44847.4,
-            "Unit sold": 8205.73
+            "Unit sold": 184.0
         },
         {
             "Category": "Clothing",
             "Number of time bought": 35,
             "Revenue": 40584.28,
-            "Unit sold": 7456.78
+            "Unit sold": 191.0
         }
     ],
     "TransactionID": [

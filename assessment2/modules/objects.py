@@ -228,6 +228,7 @@ class Transactions(Plot):
         self.payments = Payment_methods()
         self.header = []
         self.transactions_bd = Transactions_bd()
+        self.users = {}
 
     # Takes transactionID as an input and returns record with the transactionID
     def transaction(self, transactionID):
@@ -376,3 +377,10 @@ class Transactions(Plot):
                 option = input("Would you like to exit?(y/n) ").lower()
                 if option == "y":
                     break
+
+class user:
+    def __init__(self, id):
+        self.User_id = id
+        self.Spent = 0
+        self.Units_bought = 0
+        self.Transactions = []

@@ -18,7 +18,6 @@ menues = {1: """1. Retrieve the total number of transactions.
 def main():
     main= datas.datas()
     option = -1
-
     # The app runs while the option is not equal to 0
     while option != 0:
         # Asks the user for option and if invalid option asks again

@@ -89,10 +89,19 @@ class Gui(customGraph):
         self.window.state('zoomed')
         self.window.configure(bg="black")
 
+    def configure_column_frame(self, root, x):
+        for i in range(x):
+            root.grid_columnconfigure(i, weight=1, bg = "white")
+
+
     def run(self, x = 1):
         self.new_frame()
         self.side_bar()
         if x == 1:
+            self.Frame1()
+        elif x == 2:
+            self.Frame2()
+        else:
             self.Frame1()
         self.window.update()
         self.window.mainloop()
@@ -127,6 +136,12 @@ class Gui(customGraph):
 
         Label = tk.Label(frame, text="Dahsboard", bg = "black", fg = "white", font=("Georgia", 24))
         Label.pack(padx = 40, pady = 30)
+
+        button = tk.Button(frame, text = "Home", fg = "white", font=("Georgia", 20), width = 10, height = 1, bg = "black",command = lambda: self.run())
+        button.pack()
+
+        button1 = tk.Button(frame, text = "User info", width = 10, height = 1, font=("Georgia", 20),fg = "white", bg = "black",command = lambda: self.run(2))
+        button1.pack()
 
     def Frame1(self):
         # revenue location pie
@@ -163,3 +178,18 @@ class Gui(customGraph):
         canvas4 = FigureCanvasTkAgg(fig4, frame)
         canvas4.draw()
         canvas4.get_tk_widget().pack(side="left", fill="both", expand=True)
+
+    def Frame2(self):
+        frame = tk.Frame(self.window, bg = "white")
+        frame.pack(side="left", fill="y", expand = True)
+        frame.grid_columnconfigure(0, weight=1)
+        frame.grid_rowconfigure(0, weight=1)
+        Label = tk.Label(frame, text="User_ID", fg = "black", font=("Georgia", 24))
+        Label.grid(row = 0, column = 0, sticky = "ew")
+        Label.pack()
+        box = tk.Entry(frame, width = 40)
+        box.pack(pady=10)
+        submit = tk.Button(frame, text="Submit", width = 30, height = 2)
+        submit.pack(pady=5)
+
+

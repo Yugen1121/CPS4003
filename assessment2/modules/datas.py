@@ -44,6 +44,13 @@ def add_to_transactions_bd(transactions, i):
         transactions[date] = []
     transactions[date].append(i[0])
 
+def add_to_users(users, i):
+    if i[1] not in users:
+        users[i[1]] = obj.user(i[1])
+    users[i[1]].Spent += i[-1]
+    users[i[1]].Units_bought += i[-1]/6
+    users[i[1]].Transactions.append(i)
+
 # Fetches the data from csv files and returns dictionaries
 def datas():
     with open(f"{path}/files/retail_sales_data.csv") as file:
@@ -61,6 +68,9 @@ def datas():
             transactions.transactions[i[0]] = i
             transactions.revenue += i[-1]
             transactions.rating = i[-2]
+
+            # Adding datas to users
+            add_to_users(transactions.users, i)
 
             # Adding datas to store locations
             add_to_store_location(store_location.store_locations, i)
