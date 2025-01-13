@@ -94,13 +94,17 @@ class Gui(customGraph):
             root.grid_columnconfigure(i, weight=1, bg = "white")
 
 
-    def run(self, x = 1):
+    def run(self, x = 1, y = None):
         self.new_frame()
         self.side_bar()
         if x == 1:
             self.Frame1()
         elif x == 2:
             self.Frame2()
+        elif x == 3:
+            self.Frame3()
+        elif x == 4:
+            self.Frame4(y)
         else:
             self.Frame1()
         self.window.update()
@@ -179,6 +183,23 @@ class Gui(customGraph):
         canvas4.draw()
         canvas4.get_tk_widget().pack(side="left", fill="both", expand=True)
 
+    def Frame3(self):
+        frame = tk.Frame(self.window)
+        frame.pack(side = "left", fill="both", expand = True)
+        label = tk.Label(frame, text = "User not found", font = ("Georgian", 24))
+        label.pack()
+
+    def submit(self, x):
+        n = x.get()
+        if not n.isdigit():
+            self.run(3)
+            return
+        if str(n) not in self.main.users:
+            self.run(3)
+            return
+        x = self.main.users[str(n)]
+        self.run(4, x)
+
     def Frame2(self):
         frame = tk.Frame(self.window, bg = "white")
         frame.pack(side="left", fill="y", expand = True)
@@ -189,7 +210,26 @@ class Gui(customGraph):
         Label.pack()
         box = tk.Entry(frame, width = 40)
         box.pack(pady=10)
-        submit = tk.Button(frame, text="Submit", width = 30, height = 2)
+        submit = tk.Button(frame, text="Submit", width = 30, height = 2, command = lambda: self.submit(box))
         submit.pack(pady=5)
+
+
+    def Frame4(self, user):
+        frame = tk.Frame(self.window, bg = "white")
+        frame.pack(side = "left", fill = "y")
+        label = tk.Label(frame, text = f"User ID: {user.id}", font = ("Bold", 19))
+        label.pack()
+        label1 = tk.Label(frame, text=f"Spent: {user.Spent:.2f}", font=("Bold", 19))
+        label1.pack()
+        label2 = tk.Label(frame, text=f"Units_bought: {user.Units_bought:.2f}", font=("Bold", 19))
+        label2.pack()
+        label3 = tk.Label(frame, text=f"Transactions:", font=("Bold", 19))
+        label3.pack()
+        string = ""
+        for i in user.Transactions:
+            string = string + f"""TransactionID: {i[0]} !StoreLocation: {i[2]} ! ProductCategory: {i[3]} ! ProductID: {i[4]} ! Quantity: {i[5]}! UnitPrice: {i[6]} !
+             TransactionDate: {i[7]} ! PaymentMethod: {i[8]} ! DiscountApplied: {i[9]} ! CustomerSatisfaction: {i[10]} ! TotalPrice: {i[11]}\n\n"""
+        label4 = tk.Label(frame, text=string, font=("Bold", 12))
+        label4.pack()
 
 

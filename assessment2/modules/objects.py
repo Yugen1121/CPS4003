@@ -380,7 +380,7 @@ class Transactions(Plot):
 
 class user:
     def __init__(self, id):
-        self.User_id = id
+        self.id = id
         self.Spent = 0
         self.Units_bought = 0
         self.Transactions = []
